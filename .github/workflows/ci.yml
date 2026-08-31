@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.20.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      - run: pnpm test:bundle
+      - name: Bundled artifact smoke test
+        run: |
+          test -x "$(command -v node)"
+          test -s dist/scribeseal.mjs
+          env -u HMD_API_ACCESS_TOKEN -u SCRIBESEAL_ALLOWED_NOTE_IDS node dist/scribeseal.mjs >stdout.log 2>stderr.log || status=$?
+          test "${status:-0}" -ne 0
+          test ! -s stdout.log
+          grep -q CONFIG_INVALID stderr.log

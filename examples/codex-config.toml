@@ -1,0 +1,24 @@
+[plugins."scribeseal@scribeseal-local"]
+enabled = true
+
+[plugins."scribeseal@scribeseal-local".mcp_servers.scribeseal]
+enabled = true
+enabled_tools = [
+  "read_note",
+  "prepare_update",
+  "read_plan_diff",
+  "apply_update",
+]
+default_tools_approval_mode = "writes"
+
+[plugins."scribeseal@scribeseal-local".mcp_servers.scribeseal.tools.read_note]
+approval_mode = "approve"
+
+[plugins."scribeseal@scribeseal-local".mcp_servers.scribeseal.tools.prepare_update]
+approval_mode = "approve"
+
+[plugins."scribeseal@scribeseal-local".mcp_servers.scribeseal.tools.read_plan_diff]
+approval_mode = "approve"
+
+[plugins."scribeseal@scribeseal-local".mcp_servers.scribeseal.tools.apply_update]
+approval_mode = "prompt"

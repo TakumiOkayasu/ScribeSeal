@@ -1,0 +1,23 @@
+{
+  "name": "scribeseal",
+  "version": "0.1.0",
+  "description": "Reviewable, conflict-aware updates for allowlisted HackMD notes.",
+  "author": {
+    "name": "TakumiOkayasu",
+    "url": "https://github.com/TakumiOkayasu"
+  },
+  "repository": "https://github.com/TakumiOkayasu/ScribeSeal",
+  "license": "MIT",
+  "keywords": ["hackmd", "markdown", "mcp", "review"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "ScribeSeal",
+    "shortDescription": "Review and verify HackMD note updates.",
+    "longDescription": "Prepare a fixed Markdown diff, detect stale content, require explicit approval, and verify HackMD content after writing.",
+    "developerName": "TakumiOkayasu",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": ["Safely update an allowlisted HackMD note after I review the complete diff."]
+  },
+  "mcpServers": "./.mcp.json"
+}
