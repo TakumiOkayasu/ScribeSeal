@@ -54,9 +54,11 @@ function mapRemoteError(error: unknown): ScribeSealError {
       httpStatus: status,
     });
   }
-  return new ScribeSealError("REMOTE_REQUEST_FAILED", "The HackMD request failed.", {
-    ...(status === undefined ? {} : { httpStatus: status }),
-  });
+  return new ScribeSealError(
+    "REMOTE_REQUEST_FAILED",
+    "The HackMD request failed.",
+    status === undefined ? undefined : { httpStatus: status },
+  );
 }
 
 export class HackMdApiGateway implements HackMdGateway {
@@ -126,7 +128,7 @@ export class HackMdApiGateway implements HackMdGateway {
         throw new ScribeSealError(
           "PATCH_OUTCOME_UNKNOWN",
           "The HackMD update outcome could not be determined from the response.",
-          { ...(status === undefined ? {} : { httpStatus: status }) },
+          status === undefined ? undefined : { httpStatus: status },
         );
       }
       throw mapRemoteError(error);

@@ -226,9 +226,12 @@ export async function applyUpdate(
         return receiptToOutput(receipt);
       }
 
-      const receipt = createReceipt(dependencies, stored, "verification_uncertain", {
-        ...(observedSha256 === undefined ? {} : { observedSha256 }),
-      });
+      const receipt = createReceipt(
+        dependencies,
+        stored,
+        "verification_uncertain",
+        observedSha256 === undefined ? {} : { observedSha256 },
+      );
       await persistTerminal(dependencies.store, receipt, "verification_uncertain");
       terminalPersisted = true;
       return receiptToOutput(receipt);

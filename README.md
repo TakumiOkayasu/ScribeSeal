@@ -7,11 +7,13 @@ It is not a HackMD editor, a general API client, or a remote locking service. In
 ## Requirements
 
 - Node.js 24.20.0
-- pnpm 11.19.0
+- Bun 1.4.0
 - A HackMD API token
 - An explicit allowlist of note IDs
 
 The Node version is pinned consistently in `.nvmrc`, `package.json`, and CI. Dependency versions and the reasons for the concurrency choice are recorded in [docs/api-spike.md](docs/api-spike.md).
+
+Dependency installation and script execution use Bun. Formatting and linting use the Oxc toolchain (`oxfmt` and `oxlint`).
 
 ## Configure
 
@@ -37,12 +39,12 @@ State directory priority is `SCRIBESEAL_STATE_DIR`, then `$PLUGIN_DATA/scribesea
 ## Build and test
 
 ```sh
-pnpm install --frozen-lockfile
-pnpm format:check
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
+bun install --frozen-lockfile
+bun run format:check
+bun run lint
+bun run typecheck
+bun run test
+bun run build
 ```
 
 The live test is opt-in and must use a dedicated disposable test note. It never uses the interview note:
@@ -51,14 +53,14 @@ The live test is opt-in and must use a dedicated disposable test note. It never 
 export SCRIBESEAL_TEST_NOTE_ID='dedicated-test-note-id'
 export SCRIBESEAL_ALLOWED_NOTE_IDS="$SCRIBESEAL_TEST_NOTE_ID"
 export SCRIBESEAL_RUN_LIVE_TESTS='1'
-pnpm test:live
+bun run test:live
 ```
 
 If restoration fails, the test stops and reports failure; it does not repeatedly overwrite the note.
 
 ## Install as a local Plugin
 
-Build first, then install this repository as a local marketplace source using the current Codex Plugin workflow. The package contains `.codex-plugin/plugin.json`, `.mcp.json`, the bundled `dist/scribeseal.mjs`, and `skills/hackmd-safe-edit/SKILL.md`; installation does not run `pnpm install` in the Plugin cache.
+Build first, then install this repository as a local marketplace source using the current Codex Plugin workflow. The package contains `.codex-plugin/plugin.json`, `.mcp.json`, the bundled `dist/scribeseal.mjs`, and `skills/hackmd-safe-edit/SKILL.md`; installation does not run `bun install` in the Plugin cache.
 
 The MCP server starts with `node ./dist/scribeseal.mjs`, forwards only the documented environment variables, and does not depend on the user's project working directory. [examples/marketplace.json](examples/marketplace.json) is a catalog example for a marketplace root where this repository has been copied to `plugins/scribeseal`.
 

@@ -14,18 +14,18 @@ Static official-source review completed on 2026-08-31. Live requests are deferre
 
 ## Static findings
 
-| Question | Official-source result |
-|---|---|
-| GET status/body | `GET /notes/{noteId}` documents 200 and a note object. |
-| GET ETag | Not declared in the OpenAPI response schema. The official client can return raw response headers. |
-| `lastChangedAt` | Present on the note model; live mutation behavior is unverified. |
-| PATCH | `PATCH /notes/{noteId}` documents 202 for content updates. |
-| PATCH body/ETag | Response and ETag behavior require live verification. |
-| `If-Match` | No request parameter or 412 response is declared for PATCH. The typed client update method has no arbitrary-header parameter. |
-| Read-after-write | Requires live verification. |
-| Line endings/trailing newline | Requires live verification. |
-| Rate limit body | Requires live verification; raw errors are converted to safe internal errors regardless of shape. |
-| Client retry | ScribeSeal supplies no retry configuration and performs no application-level PATCH retry. |
+| Question                      | Official-source result                                                                                                        |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| GET status/body               | `GET /notes/{noteId}` documents 200 and a note object.                                                                        |
+| GET ETag                      | Not declared in the OpenAPI response schema. The official client can return raw response headers.                             |
+| `lastChangedAt`               | Present on the note model; live mutation behavior is unverified.                                                              |
+| PATCH                         | `PATCH /notes/{noteId}` documents 202 for content updates.                                                                    |
+| PATCH body/ETag               | Response and ETag behavior require live verification.                                                                         |
+| `If-Match`                    | No request parameter or 412 response is declared for PATCH. The typed client update method has no arbitrary-header parameter. |
+| Read-after-write              | Requires live verification.                                                                                                   |
+| Line endings/trailing newline | Requires live verification.                                                                                                   |
+| Rate limit body               | Requires live verification; raw errors are converted to safe internal errors regardless of shape.                             |
+| Client retry                  | ScribeSeal supplies no retry configuration and performs no application-level PATCH retry.                                     |
 
 Primary sources: [HackMD API getting started](https://hackmd.io/@docs/Getting-Started-with-the-HackMD-API), [live API docs](https://api.hackmd.io/v1/docs), [OpenAPI document](https://api.hackmd.io/v1/docs/swagger.json), [official API client](https://github.com/hackmdio/api-client), and [official CLI](https://github.com/hackmdio/hackmd-cli).
 

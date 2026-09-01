@@ -1,9 +1,9 @@
 {
   "name": "scribeseal",
   "version": "0.1.0",
-  "description": "Diff-first, conflict-aware HackMD note updates over MCP.",
   "private": true,
-  "type": "module",
+  "description": "Diff-first, conflict-aware HackMD note updates over MCP.",
+  "license": "MIT",
   "bin": {
     "scribeseal": "dist/scribeseal.mjs"
   },
@@ -15,21 +15,18 @@
     "README.md",
     "LICENSE"
   ],
+  "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "biome check .",
-    "format": "biome format --write .",
-    "format:check": "biome format .",
-    "lint": "biome lint .",
+    "check": "oxfmt --check . && oxlint --deny-warnings --import-plugin --vitest-plugin .",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint --deny-warnings --import-plugin --vitest-plugin .",
     "test": "vitest run --exclude tests/integration/live-hackmd.test.ts",
     "test:bundle": "node --experimental-strip-types tests/contract/bundled-stdio-smoke.ts",
     "test:live": "vitest run tests/integration/live-hackmd.test.ts",
     "typecheck": "tsc --noEmit"
   },
-  "engines": {
-    "node": "24.20.0"
-  },
-  "packageManager": "pnpm@11.19.0",
   "dependencies": {
     "@hackmd/api": "2.7.0",
     "@modelcontextprotocol/sdk": "1.30.0",
@@ -37,12 +34,19 @@
     "zod": "4.5.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.11",
     "@types/node": "24.13.3",
     "esbuild": "0.28.2",
-    "tsx": "4.23.13",
+    "oxfmt": "0.65.0",
+    "oxlint": "1.80.0",
     "typescript": "7.0.2",
     "vitest": "4.1.11"
   },
-  "license": "MIT"
+  "engines": {
+    "bun": "1.4.0",
+    "node": "24.20.0"
+  },
+  "packageManager": "bun@1.4.0",
+  "trustedDependencies": [
+    "esbuild"
+  ]
 }

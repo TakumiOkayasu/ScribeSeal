@@ -3,12 +3,7 @@ enabled = true
 
 [plugins."scribeseal@scribeseal-local".mcp_servers.scribeseal]
 enabled = true
-enabled_tools = [
-  "read_note",
-  "prepare_update",
-  "read_plan_diff",
-  "apply_update",
-]
+enabled_tools = ["read_note", "prepare_update", "read_plan_diff", "apply_update"]
 default_tools_approval_mode = "writes"
 
 [plugins."scribeseal@scribeseal-local".mcp_servers.scribeseal.tools.read_note]
