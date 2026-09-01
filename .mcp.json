@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "scribeseal": {
+      "command": "node",
+      "args": ["./dist/scribeseal.mjs"],
+      "cwd": ".",
+      "env_vars": [
+        "HMD_API_ACCESS_TOKEN",
+        "SCRIBESEAL_ALLOWED_NOTE_IDS",
+        "SCRIBESEAL_STATE_DIR",
+        "SCRIBESEAL_PLAN_TTL_MINUTES",
+        "SCRIBESEAL_RETENTION_HOURS"
+      ]
+    }
+  }
+}

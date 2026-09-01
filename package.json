@@ -1,0 +1,52 @@
+{
+  "name": "scribeseal",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Diff-first, conflict-aware HackMD note updates over MCP.",
+  "license": "MIT",
+  "bin": {
+    "scribeseal": "dist/scribeseal.mjs"
+  },
+  "files": [
+    ".codex-plugin/",
+    ".mcp.json",
+    "dist/",
+    "skills/",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "oxfmt --check . && oxlint --deny-warnings --import-plugin --vitest-plugin .",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint --deny-warnings --import-plugin --vitest-plugin .",
+    "test": "vitest run --exclude tests/integration/live-hackmd.test.ts",
+    "test:bundle": "node --experimental-strip-types tests/contract/bundled-stdio-smoke.ts",
+    "test:live": "vitest run tests/integration/live-hackmd.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hackmd/api": "2.7.0",
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "diff": "9.0.0",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "esbuild": "0.28.2",
+    "oxfmt": "0.65.0",
+    "oxlint": "1.80.0",
+    "typescript": "7.0.2",
+    "vitest": "4.1.11"
+  },
+  "engines": {
+    "bun": "1.4.0",
+    "node": "24.20.0"
+  },
+  "packageManager": "bun@1.4.0",
+  "trustedDependencies": [
+    "esbuild"
+  ]
+}

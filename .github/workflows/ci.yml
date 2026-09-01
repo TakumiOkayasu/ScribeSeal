@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.20.0
+      - run: bun install --frozen-lockfile
+      - run: bun run format:check
+      - run: bun run lint
+      - run: bun run typecheck
+      - run: bun run test
+      - run: bun run build
+      - run: bun run test:bundle
+      - name: Bundled artifact smoke test
+        run: |
+          test -x "$(command -v node)"
+          test -s dist/scribeseal.mjs
+          env -u HMD_API_ACCESS_TOKEN -u SCRIBESEAL_ALLOWED_NOTE_IDS node dist/scribeseal.mjs >stdout.log 2>stderr.log || status=$?
+          test "${status:-0}" -ne 0
+          test ! -s stdout.log
+          grep -q CONFIG_INVALID stderr.log
